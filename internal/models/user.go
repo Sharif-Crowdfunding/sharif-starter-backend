@@ -10,4 +10,5 @@ type User struct {
 	Name     string
 	Email    string `gorm:"type:varchar(100);unique_index"`
 	Password string `json:"Password"`
+	projects []*Project
 }
