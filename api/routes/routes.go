@@ -2,6 +2,7 @@ package routes
 
 import (
 	"net/http"
+	"sharif-starter-backend/api"
 	"sharif-starter-backend/internal/controllers"
 
 	"github.com/gorilla/mux"
@@ -19,7 +20,7 @@ func Handlers() *mux.Router {
 
 	// Auth route
 	s := r.PathPrefix("/auth").Subrouter()
-	//s.Use(api.JwtVerify)
+	s.Use(api.JwtVerify)
 	s.HandleFunc("/user", controllers.FetchUsers).Methods("GET")
 	s.HandleFunc("/user/{id}", controllers.GetUser).Methods("GET")
 	s.HandleFunc("/user/{id}", controllers.UpdateUser).Methods("PUT")
@@ -27,7 +28,9 @@ func Handlers() *mux.Router {
 
 	// Projects
 	p := r.PathPrefix("/project").Subrouter()
+	p.Use(api.JwtVerify)
 	p.HandleFunc("/create", controllers.CreateProject).Methods("POST", "OPTIONS")
+	p.HandleFunc("/addTokenInfo", controllers.AddProjectTokenDistribution).Methods("POST", "OPTIONS")
 	p.HandleFunc("/list", controllers.GetUserProjects).Methods("GET", "OPTIONS")
 	return r
 }

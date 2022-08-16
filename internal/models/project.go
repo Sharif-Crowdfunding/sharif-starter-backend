@@ -8,6 +8,7 @@ type Project struct {
 	gorm.Model
 	UserEmail string
 	Name      string
+	Token     *ProjectToken
 	*ProjectBasicInfo
 	Status ProjectStatus `gorm:"default:0"`
 }
@@ -23,8 +24,10 @@ type ProjectBasicInfo struct {
 type ProjectStatus int
 
 const (
-	START ProjectStatus = iota
-	FINISHED
+	Start ProjectStatus = iota
+	ReadyForSale
+	InProgress
+	Finished
 )
 
 //func (project *Project) BeforeCreate(scope *gorm.Scope) error {

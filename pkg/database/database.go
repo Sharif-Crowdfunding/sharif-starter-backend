@@ -37,7 +37,7 @@ func ConnectDB() *gorm.DB {
 	//defer db.Close()
 
 	db.AutoMigrate(
-		&models.User{}, &models.Project{})
+		&models.User{}, &models.Project{}, &models.ProjectToken{}, &models.Participant{})
 
 	fmt.Println("Successfully connected!", db)
 	return db

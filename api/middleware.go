@@ -22,7 +22,6 @@ func JwtVerify(next http.Handler) http.Handler {
 		header = strings.TrimSpace(header)
 
 		if header == "" {
-			//Token is missing, returns with error code 403 Unauthorized
 			w.WriteHeader(http.StatusForbidden)
 			json.NewEncoder(w).Encode(Exception{Message: "Missing auth token"})
 			return
