@@ -33,6 +33,15 @@ func Handlers() *mux.Router {
 	p.HandleFunc("/create", controllers.CreateProject).Methods("POST", "OPTIONS")
 	p.HandleFunc("/addTokenInfo", controllers.AddProjectTokenDistribution).Methods("POST", "OPTIONS")
 	p.HandleFunc("/list", controllers.GetUserProjects).Methods("GET", "OPTIONS")
+	p.HandleFunc("/token", controllers.GetProjectTokenInfo).Methods("POST", "OPTIONS")
+	p.HandleFunc("/cancel", controllers.CancelProject).Methods("POST", "OPTIONS")
+	p.HandleFunc("/release", controllers.ReleaseProjectToPublic).Methods("POST", "OPTIONS")
+	p.HandleFunc("/finish", controllers.FinishProjectSale).Methods("POST", "OPTIONS")
+
+	b := r.PathPrefix("/sale").Subrouter()
+	b.HandleFunc("/participate", controllers.BuyToken).Methods("POST", "OPTIONS")
+	b.HandleFunc("/projects", controllers.GetProjects).Methods("GET", "OPTIONS")
+	b.HandleFunc("/projects/token", controllers.GetSaleProjectTokenInfo).Methods("POST", "OPTIONS")
 
 	r.Use(corsMw)
 	return r
@@ -42,7 +51,8 @@ func Handlers() *mux.Router {
 func CommonMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Content-Type", "application/json")
-		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+		w.Header().Set("Access-Control-Allow-Credentials", "true")
 		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 		w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, Access-Control-Request-Headers, Access-Control-Request-Method, Connection, Host, Origin, User-Agent, Referer, Cache-Control, X-header")
 		next.ServeHTTP(w, r)

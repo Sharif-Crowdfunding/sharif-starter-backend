@@ -28,6 +28,7 @@ const (
 	ReadyForSale
 	InProgress
 	Finished
+	Canceled
 )
 
 //func (project *Project) BeforeCreate(scope *gorm.Scope) error {
