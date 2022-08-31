@@ -41,6 +41,7 @@ func Handlers() *mux.Router {
 	b := r.PathPrefix("/sale").Subrouter()
 	b.HandleFunc("/participate", controllers.BuyToken).Methods("POST", "OPTIONS")
 	b.HandleFunc("/projects", controllers.GetProjects).Methods("GET", "OPTIONS")
+	b.HandleFunc("/projects/get", controllers.GetProjectById).Methods("POST", "OPTIONS")
 	b.HandleFunc("/projects/token", controllers.GetSaleProjectTokenInfo).Methods("POST", "OPTIONS")
 
 	r.Use(corsMw)

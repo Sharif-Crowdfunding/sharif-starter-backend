@@ -26,10 +26,6 @@ func GetUserProjects(w http.ResponseWriter, r *http.Request) {
 	token := r.Context().Value("user").(*models.Token)
 	var projects []models.Project
 	db.Where("user_email = ?", token.Email).Find(&projects)
-	for _, project := range projects {
-		project.Token = &models.ProjectToken{}
-		db.Where("project_id = ?", project.ID).First(project.Token)
-	}
 	json.NewEncoder(w).Encode(projects)
 }
 

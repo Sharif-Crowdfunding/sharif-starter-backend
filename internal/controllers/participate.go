@@ -7,7 +7,10 @@ import (
 )
 
 func BuyToken(w http.ResponseWriter, r *http.Request) {
-
+	project := &models.Project{}
+	json.NewDecoder(r.Body).Decode(project)
+	db.Where("id = ?", project.ID).First(project)
+	json.NewEncoder(w).Encode(project)
 }
 
 func GetProjects(w http.ResponseWriter, r *http.Request) {
@@ -18,6 +21,13 @@ func GetProjects(w http.ResponseWriter, r *http.Request) {
 		db.Where("project_id = ?", project.ID).First(project.Token)
 	}
 	json.NewEncoder(w).Encode(projects)
+}
+
+func GetProjectById(w http.ResponseWriter, r *http.Request) {
+	project := &models.Project{}
+	json.NewDecoder(r.Body).Decode(project)
+	db.Where("id = ?", project.ID).First(project)
+	json.NewEncoder(w).Encode(project)
 }
 func GetSaleProjectTokenInfo(w http.ResponseWriter, r *http.Request) {
 	projectToken := &models.ProjectToken{}
