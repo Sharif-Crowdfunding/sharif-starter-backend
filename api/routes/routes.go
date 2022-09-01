@@ -34,9 +34,11 @@ func Handlers() *mux.Router {
 	p.HandleFunc("/addTokenInfo", controllers.AddProjectTokenDistribution).Methods("POST", "OPTIONS")
 	p.HandleFunc("/list", controllers.GetUserProjects).Methods("GET", "OPTIONS")
 	p.HandleFunc("/token", controllers.GetProjectTokenInfo).Methods("POST", "OPTIONS")
+	p.HandleFunc("/report", controllers.GetProjectReport).Methods("POST", "OPTIONS")
 	p.HandleFunc("/cancel", controllers.CancelProject).Methods("POST", "OPTIONS")
 	p.HandleFunc("/release", controllers.ReleaseProjectToPublic).Methods("POST", "OPTIONS")
 	p.HandleFunc("/finish", controllers.FinishProjectSale).Methods("POST", "OPTIONS")
+	p.HandleFunc("/upload", controllers.UploadProjectImage).Methods("POST", "OPTIONS")
 
 	b := r.PathPrefix("/sale").Subrouter()
 	b.HandleFunc("/participate", controllers.BuyToken).Methods("POST", "OPTIONS")

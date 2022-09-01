@@ -7,10 +7,14 @@ import (
 )
 
 func BuyToken(w http.ResponseWriter, r *http.Request) {
-	project := &models.Project{}
-	json.NewDecoder(r.Body).Decode(project)
-	db.Where("id = ?", project.ID).First(project)
-	json.NewEncoder(w).Encode(project)
+	participant := &models.Participant{}
+	json.NewDecoder(r.Body).Decode(participant)
+
+	projectToken := &models.ProjectToken{}
+	db.Where("id = ?", participant.ProjectTokenId).First(projectToken)
+	participant.PurchasedTokens = int64(participant.PurchasedTokens / projectToken.PricePerTokenByGwei)
+	savedParticipant := db.Save(participant)
+	json.NewEncoder(w).Encode(savedParticipant)
 }
 
 func GetProjects(w http.ResponseWriter, r *http.Request) {

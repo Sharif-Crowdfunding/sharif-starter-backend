@@ -6,9 +6,11 @@ import (
 
 type Project struct {
 	gorm.Model
-	UserEmail string
-	Name      string
-	Token     *ProjectToken
+	UserEmail              string
+	Name                   string
+	Token                  *ProjectToken
+	ProjectContractAddress string
+	CreatorWalletAddress   string
 	*ProjectBasicInfo
 	Status ProjectStatus `gorm:"default:0"`
 }

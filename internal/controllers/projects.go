@@ -68,9 +68,15 @@ func CancelProject(w http.ResponseWriter, r *http.Request) {
 func ReleaseProjectToPublic(w http.ResponseWriter, r *http.Request) {
 	project := &models.Project{}
 	json.NewDecoder(r.Body).Decode(project)
+	projectContractAddress := project.ProjectContractAddress
+	creatorWalletAddress := project.CreatorWalletAddress
+
 	db.Where("id = ?", project.ID).First(project)
 
+	project.CreatorWalletAddress = creatorWalletAddress
+	project.ProjectContractAddress = projectContractAddress
 	project.Status = models.InProgress
+
 	db.Save(&project)
 
 	json.NewEncoder(w).Encode(project)
