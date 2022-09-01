@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/gorilla/handlers"
 	"github.com/joho/godotenv"
 	"log"
@@ -16,7 +15,6 @@ func main() {
 	if e != nil {
 		log.Fatal("Error loading .env file")
 	}
-	fmt.Println(e)
 
 	port := os.Getenv("PORT")
 
