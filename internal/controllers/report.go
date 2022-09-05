@@ -12,7 +12,7 @@ func GetProjectReport(w http.ResponseWriter, r *http.Request) {
 	db.Where("project_id = ?", projectToken.ProjectId).First(projectToken)
 
 	var participants []models.Participant
-	db.Where("project_token_id = ?", projectToken.ProjectId).Find(&participants)
+	db.Where("project_token_id = ?", projectToken.ID).Find(&participants)
 
 	var totalFunded int64
 	for _, participant := range participants {
