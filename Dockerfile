@@ -8,14 +8,12 @@
 
 FROM golang:alpine
 
-WORKDIR /go/src/app
-
-ADD . .
+RUN mkdir /app
+ADD . /app
+WORKDIR /app
 RUN rm go.mod
 RUN go mod init sharif-starter-backend
 RUN go mod tidy
-RUN go build  -o /server main.go
+RUN go build  -o main .
 
-EXPOSE 8080
-
-CMD ["./server"]
+CMD ["/app/main"]
