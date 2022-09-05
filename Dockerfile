@@ -11,8 +11,9 @@ FROM golang:alpine
 WORKDIR /go/src/app
 
 ADD . .
-RUN go mod init
-
+RUN rm go.mod
+RUN go mod init sharif-starter-backend
+RUN go mod tidy
 RUN go build  -o /server main.go
 
 EXPOSE 8080
