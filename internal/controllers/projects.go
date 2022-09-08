@@ -60,7 +60,7 @@ func CancelProject(w http.ResponseWriter, r *http.Request) {
 	db.Where("id = ?", project.ID).First(project)
 
 	project.Status = models.Canceled
-	db.Save(&project)
+	db.Save(project)
 
 	json.NewEncoder(w).Encode(project)
 }
@@ -77,7 +77,7 @@ func ReleaseProjectToPublic(w http.ResponseWriter, r *http.Request) {
 	project.ProjectContractAddress = projectContractAddress
 	project.Status = models.InProgress
 
-	db.Save(&project)
+	db.Save(project)
 
 	json.NewEncoder(w).Encode(project)
 }
@@ -88,7 +88,7 @@ func FinishProjectSale(w http.ResponseWriter, r *http.Request) {
 	db.Where("id = ?", project.ID).First(project)
 
 	project.Status = models.Finished
-	db.Save(&project)
+	db.Save(project)
 
 	json.NewEncoder(w).Encode(project)
 }

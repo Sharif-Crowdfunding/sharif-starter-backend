@@ -18,6 +18,7 @@ func Handlers() *mux.Router {
 	r.HandleFunc("/api", controllers.TestAPI).Methods("GET", "OPTIONS")
 	r.HandleFunc("/register", controllers.CreateUser).Methods("POST", "OPTIONS")
 	r.HandleFunc("/login", controllers.Login).Methods("POST", "OPTIONS")
+	r.HandleFunc("/join", controllers.JoinWaitingList).Methods("POST", "OPTIONS")
 
 	// Auth route
 	s := r.PathPrefix("/auth").Subrouter()

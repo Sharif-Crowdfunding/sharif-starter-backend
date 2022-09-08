@@ -1,35 +1,39 @@
 package mail
 
 import (
-	"fmt"
-	"net/smtp"
+	"context"
+	"github.com/trycourier/courier-go/v2"
+	"log"
 )
 
-func SendEmail(receiver string) {
-	// Sender data.
-	from := "from@gmail.com"
-	password := "<Email Password>"
+func SendProjectToNewsLetter() {
 
-	// Receiver email address.
-	to := []string{
-		"sender@example.com",
+}
+
+func SendEmail(to string, template string) {
+	templateType := "MTPRTRG6NKMH11G45S2AFP3CJAEY"
+	switch template {
+	case "JOIN":
+		templateType = "MTPRTRG6NKMH11G45S2AFP3CJAEY"
+
 	}
+	client := courier.CreateClient("pk_prod_VZBZM4377R44KPPY70Y9AB39SA5M", nil)
 
-	// smtp server configuration.
-	smtpHost := "smtp.gmail.com"
-	smtpPort := "587"
+	requestID, err := client.SendMessage(
+		context.Background(),
+		courier.SendMessageRequestBody{
+			Message: map[string]interface{}{
+				"to":       map[string]string{"email": to},
+				"template": templateType,
+				"data": map[string]string{
+					"variables": "awesomeness",
+				},
+			},
+		},
+	)
 
-	// Message.
-	message := []byte("This is a test email message.")
-
-	// Authentication.
-	auth := smtp.PlainAuth("", from, password, smtpHost)
-
-	// Sending email.
-	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, from, to, message)
 	if err != nil {
-		fmt.Println(err)
-		return
+		log.Fatalln(err)
 	}
-	fmt.Println("Email Sent Successfully!")
+	log.Println(requestID)
 }

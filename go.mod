@@ -8,6 +8,7 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/jinzhu/gorm v1.9.16
 	github.com/joho/godotenv v1.4.0
+	github.com/trycourier/courier-go/v2 v2.7.0
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
 )
 
