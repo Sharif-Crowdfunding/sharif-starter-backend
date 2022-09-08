@@ -14,6 +14,9 @@ func Handlers() *mux.Router {
 	corsMw := mux.CORSMethodMiddleware(r)
 	r.Use(CommonMiddleware)
 
+	fs := http.FileServer(http.Dir("./files/"))
+	r.PathPrefix("/files/").Handler(http.StripPrefix("/files/", fs))
+
 	r.HandleFunc("/", controllers.TestAPI).Methods("GET", "OPTIONS")
 	r.HandleFunc("/api", controllers.TestAPI).Methods("GET", "OPTIONS")
 	r.HandleFunc("/register", controllers.CreateUser).Methods("POST", "OPTIONS")

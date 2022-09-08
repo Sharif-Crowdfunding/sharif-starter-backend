@@ -12,7 +12,8 @@ type Project struct {
 	ProjectContractAddress string
 	CreatorWalletAddress   string
 	*ProjectBasicInfo
-	Status ProjectStatus `gorm:"default:0"`
+	ProjectImage string
+	Status       ProjectStatus `gorm:"default:0"`
 }
 
 type ProjectBasicInfo struct {
